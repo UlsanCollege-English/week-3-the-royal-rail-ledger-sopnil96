@@ -1,7 +1,5 @@
 from __future__ import annotations
-
 """Week 3 homework: The Royal Rail Ledger.
-
 Implement the required functions below.
 Use stdlib only.
 """
@@ -12,12 +10,10 @@ class SLLNode:
         self.value = value
         self.next = next
 
-
 class SinglyLinkedList:
     """Simple singly linked list with a head reference."""
     def __init__(self) -> None:
         self.head: SLLNode | None = None
-
 
 class DLLNode:
     """Node for a doubly linked list."""
@@ -31,7 +27,6 @@ class DLLNode:
         self.prev = prev
         self.next = next
 
-
 class DoublyLinkedList:
     """Simple doubly linked list with head and tail references."""
     def __init__(self) -> None:
@@ -44,13 +39,11 @@ def build_sll_from_list(values: list[int]) -> SinglyLinkedList:
     sll = SinglyLinkedList()
     if not values:
         return sll
-
     sll.head = SLLNode(values[0])
     current = sll.head
     for value in values[1:]:
         current.next = SLLNode(value)
         current = current.next
-
     return sll
 
 
@@ -84,23 +77,16 @@ def remove_all_from_dll(dll: DoublyLinkedList, target: int) -> None:
     """
     current = dll.head
     while current is not None:
-        next_node = current.next  # Save before potentially removing
-        
+        next_node = current.next
         if current.value == target:
-            # Patch the previous node's next pointer
             if current.prev is not None:
                 current.prev.next = current.next
             else:
-                # This node was the head
                 dll.head = current.next
-
-            # Patch the next node's prev pointer
             if current.next is not None:
                 current.next.prev = current.prev
             else:
-                # This node was the tail
                 dll.tail = current.prev
-
         current = next_node
 
 
@@ -108,20 +94,15 @@ def is_train_palindrome(dll: DoublyLinkedList) -> bool:
     """Stretch: return True if the DLL reads the same forward and backward."""
     if dll.head is None:
         return True
-
     left = dll.head
     right = dll.tail
-
     while left is not None and right is not None:
         if left.value != right.value:
             return False
-            
-        # Stop when the two pointers meet or cross
         if left is right:
             break
         left = left.next
         if left is right:
             break
         right = right.prev
-
     return True
